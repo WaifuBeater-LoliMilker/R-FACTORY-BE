@@ -1,13 +1,14 @@
-﻿using R_Factory_BE.Auth;
-using R_Factory_BE.Middlewares;
-using R_Factory_BE.Models.Context;
-using R_Factory_BE.Repositories;
-using R_Factory_BE.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using R_Factory_BE.Auth;
+using R_Factory_BE.Middlewares;
+using R_Factory_BE.Models;
+using R_Factory_BE.Models.Context;
+using R_Factory_BE.Repositories;
+using R_Factory_BE.Services;
 using System.Data;
 using System.Security.Claims;
 using System.Text;
@@ -43,7 +44,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("ManagersOnly", policy => policy.RequireRole("Managers"));
 //.AddPolicy("MustBeRegistered", policy => policy.RequireClaim("UserType", "Registered"));
-
+builder.Services.AddMvc().AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null);
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGenericRepo, GenericRepo>();
 // Add services to the container.

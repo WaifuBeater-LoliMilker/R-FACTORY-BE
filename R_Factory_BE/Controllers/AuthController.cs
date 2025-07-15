@@ -1,14 +1,14 @@
-﻿using R_Factory_BE.Auth;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using R_Factory_BE.Auth;
 using R_Factory_BE.Models;
 using R_Factory_BE.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace R_Factory_BE.Controllers
 {
-    [Route("[controller]")]
+    [Route("auth")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private IAuthService _authService;
         private IGenericRepo _repo;
@@ -86,6 +86,7 @@ namespace R_Factory_BE.Controllers
 
             return Ok(new { message = "See ya later, aligator!" });
         }
+
         [HttpPost("refresh")]
         [AllowAnonymous]
         [SkipJWTMiddleware]
@@ -104,6 +105,7 @@ namespace R_Factory_BE.Controllers
                 return Ok(new { access_token = newSessionToken });
             }
         }
+
         [HttpPost("role")]
         public IActionResult Role()
         {

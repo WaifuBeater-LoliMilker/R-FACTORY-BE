@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace R_Factory_BE.Models;
 
-public partial class Deviceparameterlogs
+public partial class DeviceParameterLogs
 {
     public long Id { get; set; }
 

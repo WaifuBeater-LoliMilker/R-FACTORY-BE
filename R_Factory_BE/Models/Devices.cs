@@ -5,13 +5,15 @@ using System.Collections.Generic;
 
 namespace R_Factory_BE.Models;
 
-public partial class CommunicationParamConfig
+public partial class Devices
 {
     public int Id { get; set; }
 
-    public int DeviceParameterId { get; set; }
+    public int AreaId { get; set; }
 
-    public int CommunicationParamId { get; set; }
+    public string DeviceName { get; set; }
 
-    public string ConfigValue { get; set; }
+    public string Description { get; set; }
+
+    public bool? IsActive { get; set; }
 }

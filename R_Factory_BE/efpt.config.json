@@ -4,6 +4,7 @@
    "ContextNamespace": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
+   "MinimumProductVersion": "2.6.0",
    "ModelNamespace": null,
    "OutputContextPath": "Models\/Context",
    "OutputPath": "Models",
@@ -15,27 +16,31 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "areas",
+         "ObjectType": 0
+      },
+      {
          "Name": "communication",
          "ObjectType": 0
       },
       {
-         "Name": "communicationparam",
+         "Name": "communication_param",
          "ObjectType": 0
       },
       {
-         "Name": "communicationparamconfig",
+         "Name": "communication_param_config",
          "ObjectType": 0
       },
       {
-         "Name": "device",
+         "Name": "device_parameter_logs",
          "ObjectType": 0
       },
       {
-         "Name": "deviceparameter",
+         "Name": "device_parameters",
          "ObjectType": 0
       },
       {
-         "Name": "deviceparameterlogs",
+         "Name": "devices",
          "ObjectType": 0
       },
       {

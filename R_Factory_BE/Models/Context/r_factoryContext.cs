@@ -14,17 +14,19 @@ public partial class r_factoryContext : DbContext
     {
     }
 
+    public virtual DbSet<Areas> Areas { get; set; }
+
     public virtual DbSet<Communication> Communication { get; set; }
 
-    public virtual DbSet<Communicationparam> Communicationparam { get; set; }
+    public virtual DbSet<CommunicationParam> CommunicationParam { get; set; }
 
-    public virtual DbSet<Communicationparamconfig> Communicationparamconfig { get; set; }
+    public virtual DbSet<CommunicationParamConfig> CommunicationParamConfig { get; set; }
 
-    public virtual DbSet<Device> Device { get; set; }
+    public virtual DbSet<DeviceParameterLogs> DeviceParameterLogs { get; set; }
 
-    public virtual DbSet<Deviceparameter> Deviceparameter { get; set; }
+    public virtual DbSet<DeviceParameters> DeviceParameters { get; set; }
 
-    public virtual DbSet<Deviceparameterlogs> Deviceparameterlogs { get; set; }
+    public virtual DbSet<Devices> Devices { get; set; }
 
     public virtual DbSet<RefreshTokens> RefreshTokens { get; set; }
 
@@ -35,6 +37,18 @@ public partial class r_factoryContext : DbContext
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
+
+        modelBuilder.Entity<Areas>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("areas");
+
+            entity.HasIndex(e => e.AreaCode, "AreaCode_UNIQUE").IsUnique();
+
+            entity.Property(e => e.AreaCode).HasMaxLength(20);
+            entity.Property(e => e.AreaName).HasMaxLength(100);
+        });
 
         modelBuilder.Entity<Communication>(entity =>
         {
@@ -53,11 +67,11 @@ public partial class r_factoryContext : DbContext
                 .HasCharSet("utf8mb3");
         });
 
-        modelBuilder.Entity<Communicationparam>(entity =>
+        modelBuilder.Entity<CommunicationParam>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("communicationparam");
+            entity.ToTable("communication_param");
 
             entity.Property(e => e.DataType).HasMaxLength(50);
             entity.Property(e => e.Description)
@@ -70,38 +84,34 @@ public partial class r_factoryContext : DbContext
                 .HasMaxLength(100);
         });
 
-        modelBuilder.Entity<Communicationparamconfig>(entity =>
+        modelBuilder.Entity<CommunicationParamConfig>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("communicationparamconfig");
+            entity.ToTable("communication_param_config");
 
             entity.Property(e => e.ConfigValue)
                 .IsRequired()
                 .HasMaxLength(255);
         });
 
-        modelBuilder.Entity<Device>(entity =>
+        modelBuilder.Entity<DeviceParameterLogs>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("device");
+            entity.ToTable("device_parameter_logs");
 
-            entity.Property(e => e.Description)
-                .HasMaxLength(200)
-                .UseCollation("utf8mb3_general_ci")
-                .HasCharSet("utf8mb3");
-            entity.Property(e => e.DeviceName)
+            entity.Property(e => e.LogValue)
                 .IsRequired()
                 .HasMaxLength(100);
-            entity.Property(e => e.IsActive).HasDefaultValueSql("'1'");
+            entity.Property(e => e.Timestamp).HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<Deviceparameter>(entity =>
+        modelBuilder.Entity<DeviceParameters>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("deviceparameter");
+            entity.ToTable("device_parameters");
 
             entity.Property(e => e.IsActive).HasDefaultValueSql("'1'");
             entity.Property(e => e.ParamName)
@@ -111,16 +121,20 @@ public partial class r_factoryContext : DbContext
             entity.Property(e => e.Unit).HasMaxLength(20);
         });
 
-        modelBuilder.Entity<Deviceparameterlogs>(entity =>
+        modelBuilder.Entity<Devices>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("deviceparameterlogs");
+            entity.ToTable("devices");
 
-            entity.Property(e => e.LogValue)
+            entity.Property(e => e.Description)
+                .HasMaxLength(200)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.DeviceName)
                 .IsRequired()
                 .HasMaxLength(100);
-            entity.Property(e => e.Timestamp).HasColumnType("datetime");
+            entity.Property(e => e.IsActive).HasDefaultValueSql("'1'");
         });
 
         modelBuilder.Entity<RefreshTokens>(entity =>

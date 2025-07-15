@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 namespace R_Factory_BE.Models;
 
-public partial class Device
+public partial class Areas
 {
     public int Id { get; set; }
 
-    public int AreaId { get; set; }
+    public string AreaCode { get; set; }
 
-    public string DeviceName { get; set; }
+    public string AreaName { get; set; }
 
-    public string Description { get; set; }
-
-    public bool? IsActive { get; set; }
+    public int? ParentId { get; set; }
 }

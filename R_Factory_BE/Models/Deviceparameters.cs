@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace R_Factory_BE.Models;
 
-public partial class Deviceparameter
+public partial class DeviceParameters
 {
     public int Id { get; set; }
 
