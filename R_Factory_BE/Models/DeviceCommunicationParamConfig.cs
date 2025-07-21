@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace R_Factory_BE.Models;
 
-public partial class CommunicationParamConfig
+public partial class DeviceCommunicationParamConfig
 {
     public int Id { get; set; }
 

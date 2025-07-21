@@ -20,7 +20,7 @@ public partial class r_factoryContext : DbContext
 
     public virtual DbSet<CommunicationParam> CommunicationParam { get; set; }
 
-    public virtual DbSet<CommunicationParamConfig> CommunicationParamConfig { get; set; }
+    public virtual DbSet<DeviceCommunicationParamConfig> DeviceCommunicationParamConfig { get; set; }
 
     public virtual DbSet<DeviceParameterLogs> DeviceParameterLogs { get; set; }
 
@@ -84,11 +84,11 @@ public partial class r_factoryContext : DbContext
                 .HasMaxLength(100);
         });
 
-        modelBuilder.Entity<CommunicationParamConfig>(entity =>
+        modelBuilder.Entity<DeviceCommunicationParamConfig>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("communication_param_config");
+            entity.ToTable("device_communication_param_config");
 
             entity.Property(e => e.ConfigValue)
                 .IsRequired()
