@@ -38,10 +38,11 @@ namespace R_Factory_BE.Controllers
         public async Task<IActionResult> Create(DeviceParamDTO deviceParam)
         {
             await _repo.Insert<DeviceParameters>(deviceParam);
-            foreach (var configValue in deviceParam.ConfigValues)
-            {
-                await _repo.Insert<DeviceCommunicationParamConfig>(configValue);
-            }
+            if(deviceParam.ConfigValues != null)
+                foreach (var configValue in deviceParam.ConfigValues)
+                {
+                    await _repo.Insert<DeviceCommunicationParamConfig>(configValue);
+                }
             return CreatedAtAction(nameof(GetById), new { deviceParam.Id }, deviceParam);
         }
 
@@ -51,13 +52,14 @@ namespace R_Factory_BE.Controllers
         {
             if (id != deviceParam.Id) return BadRequest("Resouces do not match");
             await _repo.Update<DeviceParameters>(deviceParam);
-            foreach (var configValue in deviceParam.ConfigValues)
-            {
-                if (configValue.Id > 0)
-                    await _repo.Update<DeviceCommunicationParamConfig>(configValue);
-                else
-                    await _repo.Insert<DeviceCommunicationParamConfig>(configValue);
-            }
+            if (deviceParam.ConfigValues != null)
+                foreach (var configValue in deviceParam.ConfigValues)
+                {
+                    if (configValue.Id > 0)
+                        await _repo.Update<DeviceCommunicationParamConfig>(configValue);
+                    else
+                        await _repo.Insert<DeviceCommunicationParamConfig>(configValue);
+                }
             return Ok();
         }
 
