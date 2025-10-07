@@ -60,7 +60,7 @@ namespace R_Factory_BE.Controllers
                     else
                         await _repo.Insert<DeviceCommunicationParamConfig>(configValue);
                 }
-            return Ok();
+            return Ok(deviceParam);
         }
 
         [HttpDelete("{id}")]

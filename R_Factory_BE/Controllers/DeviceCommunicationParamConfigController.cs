@@ -20,7 +20,7 @@ namespace R_Factory_BE.Controllers
         [Authorize]
         public async Task<IActionResult> GetByDeviceParamId([FromQuery(Name = "device-param-id")] int? deviceParamId)
         {
-            deviceParamId ??= 0;
+            if (deviceParamId == null || deviceParamId < 0) deviceParamId = 0;
             var data = await _repo.ProcedureToList<DeviceCommunicationParamConfigDTO>("spGetDeviceCommunicationParamConfig",
                 ["DeviceParamId"], [deviceParamId]);
             return Ok(data);

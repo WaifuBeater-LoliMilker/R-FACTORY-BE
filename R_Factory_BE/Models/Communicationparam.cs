@@ -9,6 +9,8 @@ public partial class CommunicationParam
 {
     public int Id { get; set; }
 
+    public int SortOrder { get; set; }
+
     public int CommunicationId { get; set; }
 
     public string ParamKey { get; set; }

@@ -104,7 +104,6 @@ public partial class r_factoryContext : DbContext
             entity.Property(e => e.LogValue)
                 .IsRequired()
                 .HasMaxLength(100);
-            entity.Property(e => e.Timestamp).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<DeviceParameters>(entity =>

@@ -5,7 +5,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using R_Factory_BE.Auth;
 using R_Factory_BE.Middlewares;
-using R_Factory_BE.Models;
 using R_Factory_BE.Models.Context;
 using R_Factory_BE.Repositories;
 using R_Factory_BE.Services;
@@ -77,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseDeveloperExceptionPage();
+app.UseRouting();
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
     .Get<string[]>();
