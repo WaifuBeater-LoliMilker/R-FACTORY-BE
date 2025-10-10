@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings-example.Development.json" />
     <Content Remove="appsettings-example.json" />
+    <Content Remove="appsettings.Development.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="appsettings-example.Development.json" />
     <None Include="appsettings-example.json" />
+    <None Include="appsettings.Development.json" />
     <None Include="efpt.config.json.user" />
   </ItemGroup>
 
@@ -25,6 +29,12 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

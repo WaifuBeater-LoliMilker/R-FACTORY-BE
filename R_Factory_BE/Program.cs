@@ -87,6 +87,7 @@ app.UseCors(builder => builder.WithOrigins(allowedOrigins!)
     .AllowCredentials());
 
 app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
