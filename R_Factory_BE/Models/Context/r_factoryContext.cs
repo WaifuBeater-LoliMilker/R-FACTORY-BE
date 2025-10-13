@@ -16,6 +16,8 @@ public partial class r_factoryContext : DbContext
 
     public virtual DbSet<Areas> Areas { get; set; }
 
+    public virtual DbSet<AuditLog> AuditLog { get; set; }
+
     public virtual DbSet<Communication> Communication { get; set; }
 
     public virtual DbSet<CommunicationParam> CommunicationParam { get; set; }
@@ -50,13 +52,27 @@ public partial class r_factoryContext : DbContext
             entity.Property(e => e.AreaName).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<AuditLog>(entity =>
+        {
+            entity.HasKey(e => e.TableName).HasName("PRIMARY");
+
+            entity.ToTable("audit_log");
+
+            entity.Property(e => e.TableName)
+                .HasMaxLength(64)
+                .HasColumnName("table_name");
+            entity.Property(e => e.LastModified)
+                .HasColumnType("datetime")
+                .HasColumnName("last_modified");
+        });
+
         modelBuilder.Entity<Communication>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("communication");
 
-            entity.HasIndex(e => e.CommunicationName, "CommunicationName").IsUnique();
+            entity.HasIndex(e => e.CommunicationName, "idex_name");
 
             entity.Property(e => e.CommunicationName)
                 .IsRequired()
@@ -101,6 +117,8 @@ public partial class r_factoryContext : DbContext
 
             entity.ToTable("device_parameter_logs");
 
+            entity.HasIndex(e => new { e.YearValue, e.MonthValue, e.DayValue }, "idx_date");
+
             entity.Property(e => e.LogValue)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -111,6 +129,8 @@ public partial class r_factoryContext : DbContext
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("device_parameters");
+
+            entity.HasIndex(e => e.ParamName, "idx_name");
 
             entity.Property(e => e.IsActive).HasDefaultValueSql("'1'");
             entity.Property(e => e.ParamName)

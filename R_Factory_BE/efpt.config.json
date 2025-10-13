@@ -20,6 +20,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "audit_log",
+         "ObjectType": 0
+      },
+      {
          "Name": "communication",
          "ObjectType": 0
       },

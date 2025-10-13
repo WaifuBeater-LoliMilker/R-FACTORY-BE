@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Factory_BE.DTO;
+using R_Factory_BE.Models;
+using R_Factory_BE.Services;
 
 namespace R_Factory_BE.Controllers
 {
@@ -12,6 +14,14 @@ namespace R_Factory_BE.Controllers
         public DashboardController(IGenericRepo repo)
         {
             _repo = repo;
+        }
+        [HttpGet("latest-change")]
+        [AllowAnonymous]
+        [SkipJWTMiddleware]
+        public async Task<IActionResult> LatestChange()
+        {
+            var data = await _repo.FindModel<AuditLog>(l => l.TableName == "device_communication_param_config");
+            return Ok(data?.LastModified ?? DateTime.MinValue);
         }
         [HttpGet("org-chart")]
         [Authorize]
