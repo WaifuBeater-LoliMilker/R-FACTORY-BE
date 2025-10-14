@@ -15,6 +15,15 @@ namespace R_Factory_BE.Controllers
         {
             _repo = repo;
         }
+        [HttpGet("end-points")]
+        [AllowAnonymous]
+        [SkipJWTMiddleware]
+        public async Task<IActionResult> GetEndPoints()
+        {
+            var data = await _repo.ProcedureToList<Endpoints, ModbusDetails, StartAddresses>(
+                "spGetEnpoints", [], []);
+            return Ok(data);
+        }
         [HttpGet("latest-change")]
         [AllowAnonymous]
         [SkipJWTMiddleware]
@@ -60,4 +69,7 @@ namespace R_Factory_BE.Controllers
             return Ok(data);
         }
     }
+    public record Endpoints(string IP = "", string Port = "");
+    public record ModbusDetails(string SlaveId = "", string FunctionRead = "");
+    public record StartAddresses(int DeviceParameterId = 0, string StartAddress = "");
 }
