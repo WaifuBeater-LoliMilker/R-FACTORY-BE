@@ -38,7 +38,7 @@ namespace R_Factory_BE.Controllers
         public async Task<IActionResult> Create(DeviceParamDTO deviceParam)
         {
             await _repo.Insert<DeviceParameters>(deviceParam);
-            if(deviceParam.ConfigValues != null)
+            if (deviceParam.ConfigValues != null)
                 foreach (var configValue in deviceParam.ConfigValues)
                 {
                     await _repo.Insert<DeviceCommunicationParamConfig>(configValue);
