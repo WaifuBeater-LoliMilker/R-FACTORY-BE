@@ -83,18 +83,19 @@ namespace R_Factory_BE.Controllers
         /// <returns></returns>
         [HttpGet("details")]
         [Authorize]
-        public async Task<IActionResult> Details([FromQuery(Name = "date-option")] int dateOption)
+        public async Task<IActionResult> Details([FromQuery(Name = "date-option")] int dateOption,
+            [FromQuery(Name = "device-id")] int deviceId)
         {
             var voltageData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "DateOption"], [1, dateOption]);
+                    "spGetDetailChartData", ["ChartType", "DateOption", "DeviceId"], [1, dateOption, deviceId]);
             var amperageData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "DateOption"], [2, dateOption]);
+                    "spGetDetailChartData", ["ChartType", "DateOption", "DeviceId"], [2, dateOption, deviceId]);
             var powerRateData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "DateOption"], [3, dateOption]);
+                    "spGetDetailChartData", ["ChartType", "DateOption", "DeviceId"], [3, dateOption, deviceId]);
             var temperatureData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "DateOption"], [4, dateOption]);
+                    "spGetDetailChartData", ["ChartType", "DateOption", "DeviceId"], [4, dateOption, deviceId]);
             var wasteOutputData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "DateOption"], [5, dateOption]);
+                    "spGetDetailChartData", ["ChartType", "DateOption", "DeviceId"], [5, dateOption, deviceId]);
             try
             {
                 var result = new
