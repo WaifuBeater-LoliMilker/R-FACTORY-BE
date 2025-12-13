@@ -9,7 +9,6 @@
   <ItemGroup>
     <Content Remove="appsettings-example.Development.json" />
     <Content Remove="appsettings-example.json" />
-    <Content Remove="appsettings.Development.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +18,6 @@
   <ItemGroup>
     <None Include="appsettings-example.Development.json" />
     <None Include="appsettings-example.json" />
-    <None Include="appsettings.Development.json" />
     <None Include="efpt.config.json.user" />
   </ItemGroup>
 
