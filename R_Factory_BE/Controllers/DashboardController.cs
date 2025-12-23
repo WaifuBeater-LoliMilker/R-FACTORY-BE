@@ -102,24 +102,34 @@ namespace R_Factory_BE.Controllers
         /// </summary>
         /// <param name="dateOption"></param>
         /// <returns></returns>
-        [HttpGet("details")]
+        [HttpGet("details-energy")]
         [Authorize]
-        public async Task<IActionResult> Details([FromQuery(Name = "year")] int year,
+        public async Task<IActionResult> DetailsEnergy([FromQuery(Name = "year")] int year,
             [FromQuery(Name = "month")] int month,
             [FromQuery(Name = "device-id")] int deviceId)
         {
-            var powerRateData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "YearValue", "MonthValue", "DeviceId"], [1, year, month, deviceId]);
-            var wasteOutputData = await _repo.ProcedureToList<DetailCharts>(
-                    "spGetDetailChartData", ["ChartType", "YearValue", "MonthValue", "DeviceId"], [2, year, month, deviceId]);
             try
             {
-                var result = new
-                {
-                    powerRateData,
-                    wasteOutputData,
-                };
-                return Ok(result);
+                var powerRateData = await _repo.ProcedureToList<DetailCharts>(
+                        "spGetDetailEnergyChartData", ["YearValue", "MonthValue", "DeviceId"], [year, month, deviceId]);
+                return Ok(powerRateData);
+            }
+            catch
+            {
+                return StatusCode(500, "Load dữ liệu thất bại");
+            }
+        }
+        [HttpGet("details-waste-output")]
+        [Authorize]
+        public async Task<IActionResult> DetailsWasteOutput([FromQuery(Name = "year")] int year,
+            [FromQuery(Name = "month")] int month,
+            [FromQuery(Name = "device-id")] int deviceId)
+        {
+            try
+            {
+                var wasteOutputData = await _repo.ProcedureToList<DetailCharts>(
+                        "spGetDetailWasteOutputChartData", ["YearValue", "MonthValue", "DeviceId"], [year, month, deviceId]);
+                return Ok(wasteOutputData);
             }
             catch
             {

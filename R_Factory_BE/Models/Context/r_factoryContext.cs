@@ -123,6 +123,7 @@ public partial class r_factoryContext : DbContext
 
             entity.HasIndex(e => new { e.DeviceParameterId, e.YearValue, e.MonthValue, e.LogValue }, "idx_dpl_param_ym_val");
 
+            entity.Property(e => e.Address).HasMaxLength(45);
             entity.Property(e => e.DayValue).HasComputedColumnSql("dayofmonth(`LogTime`)", true);
             entity.Property(e => e.HourValue).HasComputedColumnSql("hour(`LogTime`)", true);
             entity.Property(e => e.LogTime).HasColumnType("datetime");
