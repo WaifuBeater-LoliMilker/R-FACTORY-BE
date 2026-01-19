@@ -3,6 +3,6 @@
     public class EnergyConsumptionChartData
     {
         public string DeviceName { get; set; } = "";
-        public string SumCongSuatTieuThu { get; set; } = "";
+        public string CongSuatTieuThu { get; set; } = "";
     }
 }

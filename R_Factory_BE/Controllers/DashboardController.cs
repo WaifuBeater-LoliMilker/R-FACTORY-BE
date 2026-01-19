@@ -64,8 +64,6 @@ namespace R_Factory_BE.Controllers
         [Authorize]
         public async Task<IActionResult> ElectricUsageData()
         {
-            var data = await _repo.ProcedureToList<ElectricUsageChartData>(
-                "spGetEnergyConsumptionDailySums", [], []);
             var now = DateTime.Today;
             var curYear = now.Year;
             var curMonth = now.Month;
@@ -74,21 +72,32 @@ namespace R_Factory_BE.Controllers
             var prevYear = prev.Year;
             var prevMonth = prev.Month;
 
+            var currentMonthData = await _repo.ProcedureToList<ElectricUsageChartData>(
+                "spGetEnergyConsumptionDailySums",
+                ["YearValue", "MonthValue"],
+                [curYear, curMonth]
+            );
+
+            var previousMonthData = await _repo.ProcedureToList<ElectricUsageChartData>(
+                "spGetEnergyConsumptionDailySums",
+                ["YearValue", "MonthValue"],
+                [prevYear, prevMonth]
+            );
+
             var result = new
             {
-                Item1 = data
-                    .Where(x => x.YearValue == curYear && x.MonthValue == curMonth)
+                Item1 = currentMonthData
                     .OrderBy(x => x.DayDate)
                     .ToList(),
 
-                Item2 = data
-                    .Where(x => x.YearValue == prevYear && x.MonthValue == prevMonth)
+                Item2 = previousMonthData
                     .OrderBy(x => x.DayDate)
                     .ToList()
             };
 
             return Ok(result);
         }
+
 
         [HttpGet("waste-output-chart")]
         [Authorize]

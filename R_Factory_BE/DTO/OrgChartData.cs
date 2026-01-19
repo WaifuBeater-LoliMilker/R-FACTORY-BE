@@ -4,8 +4,6 @@
     {
         public int DeviceId { get; set; } = 0;
         public string DeviceName { get; set; } = "";
-        public string AvgDongDien { get; set; } = "";
-        public string SumCongSuat { get; set; } = "";
-        public string SumCongSuatTieuThu { get; set; } = "";
+        public string CongSuatTieuThu { get; set; } = "";
     }
 }
