@@ -4,5 +4,7 @@
     {
         public string XAxisValue { get; set; } = "";
         public string YAxisValue { get; set; } = "";
+        public int AreaId { get; set; }
+        public string AreaName { get; set; }
     }
 }

@@ -115,12 +115,13 @@ namespace R_Factory_BE.Controllers
         [Authorize]
         public async Task<IActionResult> DetailsEnergy([FromQuery(Name = "year")] int year,
             [FromQuery(Name = "month")] int month,
+            [FromQuery(Name = "day")] int day,
             [FromQuery(Name = "device-id")] int deviceId)
         {
             try
             {
                 var powerRateData = await _repo.ProcedureToList<DetailCharts>(
-                        "spGetDetailEnergyChartData", ["YearValue", "MonthValue", "DeviceId"], [year, month, deviceId]);
+                        "spGetDetailEnergyChartData", ["YearValue", "MonthValue", "DayValue", "DeviceId"], [year, month, day, deviceId]);
                 return Ok(powerRateData);
             }
             catch
@@ -139,6 +140,24 @@ namespace R_Factory_BE.Controllers
                 var wasteOutputData = await _repo.ProcedureToList<DetailCharts>(
                         "spGetDetailWasteOutputChartData", ["YearValue", "MonthValue", "DeviceId"], [year, month, deviceId]);
                 return Ok(wasteOutputData);
+            }
+            catch
+            {
+                return StatusCode(500, "Load dữ liệu thất bại");
+            }
+        }
+
+        [HttpGet("energy-usage-by-area")]
+        [Authorize]
+        public async Task<IActionResult> EnergyUsageByYear([FromQuery(Name = "year")] int year,
+          [FromQuery(Name = "month")] int month,
+          [FromQuery(Name = "day")] int day)
+        {
+            try
+            {
+                var dataByYear = await _repo.ProcedureToList<DetailCharts>(
+                        "spGetAreaStackedEnergyChartData", ["pYear", "pMonth", "pDay"], [year, month, day]);
+                return Ok(dataByYear);
             }
             catch
             {
