@@ -121,7 +121,7 @@ namespace R_Factory_BE.Controllers
             try
             {
                 var powerRateData = await _repo.ProcedureToList<DetailCharts>(
-                        "spGetDetailEnergyChartData", ["YearValue", "MonthValue", "DayValue", "DeviceId"], [year, month, day, deviceId]);
+                        "spGetDetailEnergyChartData", ["pYear", "pMonth", "pDay", "DeviceId"], [year, month, day, deviceId]);
                 return Ok(powerRateData);
             }
             catch
