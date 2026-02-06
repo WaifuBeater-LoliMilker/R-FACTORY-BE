@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Hosting;
+using R_Factory_BE.Middlewares;
 using R_Factory_BE.Models;
 using System.Data;
 
@@ -26,7 +27,7 @@ namespace R_Factory_BE.Services
                 {
                     Console.WriteLine($"Error in LogService: {ex.Message}");
                 }
-                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(30), stoppingToken);
             }
         }
 
@@ -36,8 +37,7 @@ namespace R_Factory_BE.Services
             var db = scope.ServiceProvider.GetRequiredService<IDbConnection>();
 
             var now = DateTime.Now;
-            var from = now.AddHours(-1);
-            //var from = now.AddMonths(-1);
+            var from = now.AddMinutes(-30);
             var to = now;
 
             try
@@ -49,7 +49,7 @@ namespace R_Factory_BE.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Minutely error: " + ex.Message);
+                ErrorLogger.Write(ex);
             }
 
             try
@@ -61,7 +61,7 @@ namespace R_Factory_BE.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Hourly error: " + ex.Message);
+                ErrorLogger.Write(ex);
             }
 
             try
@@ -73,9 +73,8 @@ namespace R_Factory_BE.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Daily error: " + ex.Message);
+                ErrorLogger.Write(ex);
             }
-            ;
 
             try
             {
@@ -86,10 +85,10 @@ namespace R_Factory_BE.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Monthly error: " + ex.Message);
+                ErrorLogger.Write(ex);
             }
 
-   
+
         }
     }
 }
