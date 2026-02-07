@@ -47,7 +47,7 @@ builder.Services.AddAuthorizationBuilder()
 builder.Services.AddMvc().AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null);
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGenericRepo, GenericRepo>();
-builder.Services.AddHostedService<LogService>();
+//builder.Services.AddHostedService<LogService>();
 
 // Add services to the container.
 
