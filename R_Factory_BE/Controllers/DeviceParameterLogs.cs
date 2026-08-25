@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Asn1.Ocsp;
 using R_Factory_BE.Middlewares;
 using R_Factory_BE.Models;
 using R_Factory_BE.Services;
@@ -29,28 +28,32 @@ namespace R_Factory_BE.Controllers
             {
                 string apiKey = _config["JwtSettings:Secret"]!;
                 if (logData.secret != apiKey) return BadRequest("Secret does not match");
+                int[] kWhParameterIds = [29, 56, 87, 118, 149, 180];
                 foreach (var value in logData.data)
                 {
                     if (value.DeviceParameterId <= 0) continue;
                     await _repo.Insert<DeviceParameterLogs>(value);
 
-                    await _repo.ExecuteProcedureAsync(
-                        "spAggregateEnergyHourly_ByLog",
-                        new string[] { "@pDeviceParameterId", "@pLogTime"},
-                        new object[] { value.DeviceParameterId, value.LogTime }
-                    );
+                    if (kWhParameterIds.Contains(Convert.ToInt32(value.DeviceParameterId)))
+                    {
+                        await _repo.ExecuteProcedureAsync(
+                            "spAggregateEnergyHourly_ByLog",
+                            ["@pDeviceParameterId", "@pLogTime"],
+                            [value.DeviceParameterId, value.LogTime]
+                        );
 
-                    await _repo.ExecuteProcedureAsync(
-                        "spAggregateEnergyDaily_ByLog",
-                        new string[] { "@pDeviceParameterId", "@pLogTime"},
-                        new object[] { value.DeviceParameterId, value.LogTime }
-                    );
+                        await _repo.ExecuteProcedureAsync(
+                            "spAggregateEnergyDaily_ByLog",
+                            ["@pDeviceParameterId", "@pLogTime"],
+                            [value.DeviceParameterId, value.LogTime]
+                        );
 
-                    await _repo.ExecuteProcedureAsync(
-                        "spAggregateEnergyMonthly_ByLog",
-                        new string[] { "@pDeviceParameterId", "@pYear", "@pMonth" },
-                        new object[] { value.DeviceParameterId, value.LogTime.Year, value.LogTime.Month }
-                    );
+                        await _repo.ExecuteProcedureAsync(
+                            "spAggregateEnergyMonthly_ByLog",
+                            ["@pDeviceParameterId", "@pYear", "@pMonth"],
+                            [value.DeviceParameterId, value.LogTime.Year, value.LogTime.Month]
+                        );
+                    }
                 }
                 return Ok();
             }

@@ -17,7 +17,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
+        
         public async Task<IActionResult> GetByDeviceId([FromQuery(Name = "device-id")] int? deviceId)
         {
             deviceId ??= 0;
@@ -26,7 +26,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _repo.GetById<DeviceParameters>(id);
@@ -34,7 +34,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
+        
         public async Task<IActionResult> Create(DeviceParamDTO deviceParam)
         {
             await _repo.Insert<DeviceParameters>(deviceParam);
@@ -47,7 +47,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Update(int id, DeviceParamDTO deviceParam)
         {
             if (id != deviceParam.Id) return BadRequest("Resouces do not match");
@@ -64,7 +64,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteById<DeviceParameters>(id);

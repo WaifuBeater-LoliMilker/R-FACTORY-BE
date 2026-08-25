@@ -17,7 +17,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
+        
         public async Task<IActionResult> GetParams([FromQuery(Name = "communication-id")] int? commId)
         {
             commId ??= 0;
@@ -26,7 +26,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _repo.GetById<CommunicationParam>(id);
@@ -34,7 +34,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
+        
         public async Task<IActionResult> Create(CommunicationParam commParam)
         {
             if (commParam.CommunicationId == 0) return BadRequest("Invalid data");
@@ -43,7 +43,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Update(int id, CommunicationParam commParam)
         {
             if (id != commParam.Id) return BadRequest("Resouces do not match");
@@ -53,7 +53,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteById<CommunicationParam>(id);

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using R_Factory_BE.Models;
 
 namespace R_Factory_BE.Controllers
@@ -16,7 +15,6 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var data = await _repo.GetAll<Areas>();
@@ -24,7 +22,6 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _repo.GetById<Areas>(id);
@@ -32,7 +29,6 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
         public async Task<IActionResult> Create(Areas area)
         {
             await _repo.Insert<Areas>(area);
@@ -40,7 +36,6 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> Update(int id, Areas area)
         {
             if (id != area.Id) return BadRequest("Resouces do not match");
@@ -49,7 +44,6 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteById<Areas>(id);

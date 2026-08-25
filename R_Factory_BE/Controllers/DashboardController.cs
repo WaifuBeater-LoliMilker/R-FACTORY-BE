@@ -37,7 +37,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("org-chart")]
-        [Authorize]
+
         public async Task<IActionResult> OrgChartData()
         {
             var data = await _repo.ProcedureToList<OrgChartData>("spGetOrgChartData", [], []);
@@ -45,7 +45,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("active-power-chart")]
-        [Authorize]
+
         public async Task<IActionResult> ActivePowerData()
         {
             var data = await _repo.ProcedureToList<ActivePowerChartData>("spGetActivePowerChartData", [], []);
@@ -53,7 +53,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("energy-consumption-chart")]
-        [Authorize]
+
         public async Task<IActionResult> EnergyConsumptionData()
         {
             var data = await _repo.ProcedureToList<EnergyConsumptionChartData>("spGetEnergyConsumptionChartData", [], []);
@@ -61,7 +61,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("electric-usage-chart")]
-        [Authorize]
+
         public async Task<IActionResult> ElectricUsageData()
         {
             var now = DateTime.Today;
@@ -100,7 +100,7 @@ namespace R_Factory_BE.Controllers
 
 
         [HttpGet("waste-output-chart")]
-        [Authorize]
+
         public async Task<IActionResult> WasteOutputData()
         {
             var data = await _repo.ProcedureToList<WasteOutputChartData>("spGetWasteOutputChartData", [], []);
@@ -112,7 +112,7 @@ namespace R_Factory_BE.Controllers
         /// <param name="dateOption"></param>
         /// <returns></returns>
         [HttpGet("details-energy")]
-        [Authorize]
+
         public async Task<IActionResult> DetailsEnergy([FromQuery(Name = "year")] int year,
             [FromQuery(Name = "month")] int month,
             [FromQuery(Name = "day")] int day,
@@ -130,7 +130,7 @@ namespace R_Factory_BE.Controllers
             }
         }
         [HttpGet("details-waste-output")]
-        [Authorize]
+
         public async Task<IActionResult> DetailsWasteOutput([FromQuery(Name = "year")] int year,
             [FromQuery(Name = "month")] int month,
             [FromQuery(Name = "device-id")] int deviceId)
@@ -148,7 +148,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("energy-usage-by-area")]
-        [Authorize]
+
         public async Task<IActionResult> EnergyUsageByYear([FromQuery(Name = "year")] int year,
           [FromQuery(Name = "month")] int month,
           [FromQuery(Name = "day")] int day)

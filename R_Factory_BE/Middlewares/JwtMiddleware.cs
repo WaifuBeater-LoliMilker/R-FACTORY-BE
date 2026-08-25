@@ -1,11 +1,10 @@
 namespace R_Factory_BE.Middlewares;
 
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using R_Factory_BE.Auth;
 using R_Factory_BE.Models;
 using R_Factory_BE.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -29,8 +28,8 @@ public class JwtMiddleware
             return;
         }
         var token = context.Request.Headers.Authorization.FirstOrDefault()?.Split(" ").Last();
-        if (token != null)
-            await AttachUserToContext(context, userService, token, repo);
+        //if (token != null)
+        //    await AttachUserToContext(context, userService, token, repo);
 
         await _next(context);
     }

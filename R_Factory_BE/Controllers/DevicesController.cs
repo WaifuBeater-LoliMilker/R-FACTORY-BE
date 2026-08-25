@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using R_Factory_BE.DTO;
 using R_Factory_BE.Models;
 
@@ -17,7 +16,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
+
         public async Task<IActionResult> GetDevices([FromQuery(Name = "area-id")] int? areaId)
         {
             areaId ??= 0;
@@ -26,7 +25,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _repo.GetById<Devices>(id);
@@ -34,7 +33,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
+
         public async Task<IActionResult> Create(Devices device)
         {
             await _repo.Insert<Devices>(device);
@@ -42,7 +41,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+
         public async Task<IActionResult> Update(int id, Devices device)
         {
             if (id != device.Id) return BadRequest("Resouces do not match");
@@ -51,7 +50,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteById<Devices>(id);

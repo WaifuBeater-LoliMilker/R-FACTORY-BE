@@ -17,7 +17,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
+        
         public async Task<IActionResult> GetByDeviceParamId([FromQuery(Name = "device-param-id")] int? deviceParamId)
         {
             if (deviceParamId == null || deviceParamId < 0) deviceParamId = 0;
@@ -27,7 +27,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _repo.GetById<DeviceCommunicationParamConfig>(id);
@@ -35,7 +35,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
+        
         public async Task<IActionResult> Create(DeviceCommunicationParamConfig commParamConfig)
         {
             await _repo.Insert<DeviceCommunicationParamConfig>(commParamConfig);
@@ -43,7 +43,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Update(int id, DeviceCommunicationParamConfig commParamConfig)
         {
             if (id != commParamConfig.Id) return BadRequest("Resouces do not match");
@@ -52,7 +52,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteById<DeviceCommunicationParamConfig>(id);

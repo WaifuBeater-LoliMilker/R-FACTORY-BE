@@ -16,7 +16,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
+        
         public async Task<IActionResult> GetAll()
         {
             var data = await _repo.GetAll<Communication>();
@@ -24,7 +24,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _repo.GetById<Communication>(id);
@@ -32,7 +32,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
+        
         public async Task<IActionResult> Create(Communication communication)
         {
             await _repo.Insert<Communication>(communication);
@@ -40,7 +40,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Update(int id, Communication communication)
         {
             if (id != communication.Id) return BadRequest("Resouces do not match");
@@ -49,7 +49,7 @@ namespace R_Factory_BE.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteById<Communication>(id);
