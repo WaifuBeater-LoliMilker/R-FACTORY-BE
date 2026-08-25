@@ -49,6 +49,12 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGenericRepo, GenericRepo>();
 //builder.Services.AddHostedService<LogService>();
 
+// SMTP warning emails + log-freshness monitoring (see "SmtpSettings" / "LogMonitoring" sections).
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.Configure<LogMonitoringOptions>(builder.Configuration.GetSection("LogMonitoring"));
+builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddHostedService<LogMonitoringService>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
